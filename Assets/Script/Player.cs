@@ -10,18 +10,19 @@ public class Player : MonoBehaviour
     public GameObject bulletSpawnPoint;
     public GameObject bullet;
     public float waitTime;
-    
+    private Plane playerPlane;
+    private Ray ray;
     void Start()
-    {
-        
+    { 
+        playerPlane = new Plane(Vector3.up, transform.position);
     }
 
     void Update()
     {
-        Plane playerPlane = new Plane(Vector3.up, transform.position);
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         float hidDis = 0.0f;
+        
         if (playerPlane.Raycast(ray, out hidDis))
         {
             Vector3 targetPoint = ray.GetPoint(hidDis);

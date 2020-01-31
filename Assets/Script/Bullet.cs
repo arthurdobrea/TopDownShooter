@@ -5,14 +5,12 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Start is called before the first frame update
     public float speed;
     public float timeToDie;
 
-    // Update is called once per frame
     void Update()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        transform.Translate(Vector3.forward * (speed * Time.deltaTime));
         timeToDie += 1 * Time.deltaTime;
         if (timeToDie >= 3)
         {
@@ -22,11 +20,16 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Enemy")
+        if (other.CompareTag("Enemy"))
         {
-            
             Destroy(gameObject);
             Destroy(other.gameObject);
         }
-    }
+        
+        if (other.CompareTag("Human"))
+        {
+            Destroy(gameObject);
+            Destroy(other.gameObject);
+        }
+    }    
 }
